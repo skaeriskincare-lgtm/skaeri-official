@@ -1,0 +1,3 @@
+## 2024-07-25 - Persistent and Accessible Single-Page Wishlist Experience
+**Learning:** Wishlists in single-page HTML applications are often represented as ephemeral toast messages without persistent storage or user-accessible management views. To deliver a truly delightful and accessible user experience, wishlists should persist across user sessions using LocalStorage and provide an interactive, keyboard-navigable drawer (sidebar) or modal that users can easily invoke from any navigation header.
+**Action:** Always combine ephemeral success states (like toast messages) with a persistent storage mechanism and an accessible modal/drawer so users retain control and can easily review their saved items.
