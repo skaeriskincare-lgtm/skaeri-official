@@ -8,6 +8,8 @@
 <meta name="keywords" content="Best Vitamin C Serum India, Glow Serum India, Hydration Serum, Organic Skincare Products, Keratin Shampoo, Salon Products India, Skaeri Organics">
 <meta property="og:title" content="Skaeri — Premium Organic Salon Products">
 <meta property="og:description" content="Shop professional salon-grade organic skincare & haircare products. Trusted by 500+ partner salons across India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{--black:#0a0a0a;--off-black:#111111;--charcoal:#1a1a1a;--gold:#c9a84c;--gold-light:#e2c47a;--white:#ffffff;--border:rgba(201,168,76,0.2);}
@@ -868,7 +870,18 @@ function goProducts(){ goPage('prod'); }
 function later(id){setTimeout(()=>{const e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});},120);}
 
 // NAV SCROLL
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60));
+const navEl = document.getElementById('nav');
+let isScrolled = window.scrollY > 60;
+if (isScrolled && navEl) {
+  navEl.classList.add('scrolled');
+}
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY > 60;
+  if (scrolled !== isScrolled) {
+    isScrolled = scrolled;
+    if (navEl) navEl.classList.toggle('scrolled', scrolled);
+  }
+}, { passive: true });
 
 // HAMBURGER
 function closeNav(){document.getElementById('navlinks').removeAttribute('style');}
