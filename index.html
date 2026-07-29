@@ -193,8 +193,9 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 .modal-ov.open{opacity:1;pointer-events:all;}
 .modal{background:var(--off-black);max-width:940px;width:100%;position:relative;margin:auto;}
 .modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
-.mx{position:absolute;top:14px;right:18px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:28px;cursor:pointer;z-index:10;line-height:1;transition:color 0.2s;}
+.mx{position:absolute;top:14px;right:18px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:28px;cursor:pointer;z-index:10;line-height:1;transition:color 0.2s, outline 0.1s;}
 .mx:hover{color:var(--white);}
+.mx:focus-visible{outline:2px solid var(--gold);outline-offset:2px;color:var(--white);}
 .mlay{display:grid;grid-template-columns:1fr 1fr;}
 .mgal{background:var(--charcoal);position:relative;}
 .mgal img{width:100%;height:100%;object-fit:cover;min-height:440px;display:block;}
@@ -322,8 +323,9 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 .popbox{background:var(--off-black);border:1px solid var(--border);max-width:480px;width:90%;padding:56px 48px;position:relative;transform:translateY(18px);transition:transform 0.35s;}
 .popov.open .popbox{transform:translateY(0);}
 .popbox::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
-.popx{position:absolute;top:18px;right:18px;background:none;border:none;color:rgba(255,255,255,0.38);font-size:26px;cursor:pointer;line-height:1;transition:color 0.2s;}
+.popx{position:absolute;top:18px;right:18px;background:none;border:none;color:rgba(255,255,255,0.38);font-size:26px;cursor:pointer;line-height:1;transition:color 0.2s, outline 0.1s;}
 .popx:hover{color:var(--white);}
+.popx:focus-visible{outline:2px solid var(--gold);outline-offset:2px;color:var(--white);}
 .popbadge{display:inline-block;background:rgba(201,168,76,0.13);border:1px solid var(--border);color:var(--gold);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;padding:7px 14px;margin-bottom:20px;}
 .popbox h3{font-size:34px;line-height:1.2;margin-bottom:10px;}.popbox h3 em{color:var(--gold);font-style:italic;}
 .popbox p{font-size:14px;color:rgba(255,255,255,0.45);line-height:1.65;margin-bottom:28px;}
@@ -590,8 +592,9 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 /* ── FORM MODAL ── */
 .form-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:1000;padding:20px;}
 .form-modal-content{background:var(--off-black);border:1px solid var(--border);padding:48px;max-width:600px;width:100%;border-radius:8px;position:relative;max-height:90vh;overflow-y:auto;}
-.form-close{position:absolute;top:16px;right:16px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:0.6;}
+.form-close{position:absolute;top:16px;right:16px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:0.6;transition:opacity 0.2s, outline 0.1s;}
 .form-close:hover{opacity:1;}
+.form-close:focus-visible{outline:2px solid var(--gold);outline-offset:2px;opacity:1;}
 .form-modal-content h3{font-size:28px;margin-bottom:8px;}
 .form-modal-content p{font-size:12px;color:rgba(255,255,255,0.4);}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
@@ -748,7 +751,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 </div>
 <div class="filter-bar">
   <div class="filter-inner">
-    <div class="sbox"><svg class="sico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="srch" placeholder="Search products..."></div>
+    <div class="sbox"><svg class="sico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="srch" placeholder="Search products..." aria-label="Search products"></div>
     <div class="ftabs"><button class="ftab active" data-cat="all">All</button><button class="ftab" data-cat="hair">Hair Care</button><button class="ftab" data-cat="skin">Skin Care</button><button class="ftab" data-cat="treatment">Treatments</button><button class="ftab" data-cat="organic">Organic</button></div>
     <select class="ssrt" id="srt"><option value="popular">Popular</option><option value="price-asc">Price ↑</option><option value="price-desc">Price ↓</option><option value="rating">Rating</option></select>
   </div>
@@ -778,7 +781,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 
 <!-- MODAL -->
 <div class="modal-ov" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal"><button class="mx" onclick="closeModal()">×</button>
+  <div class="modal"><button class="mx" onclick="closeModal()" aria-label="Close product details">×</button>
     <div class="mlay">
       <div class="mgal"><img id="mimg" src="" alt=""><div class="mgbadges" id="mbadges"></div></div>
       <div class="mbd" id="mbody"></div>
@@ -791,7 +794,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
   <div class="cart-drawer">
     <div class="cart-head">
       <h3>Your Cart</h3>
-      <button class="mx" style="position:static" onclick="closeCart()">×</button>
+      <button class="mx" style="position:static" onclick="closeCart()" aria-label="Close cart drawer">×</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-footer" id="cartFooter">
@@ -805,7 +808,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 <!-- CHECKOUT MODAL -->
 <div class="checkout-ov" id="checkoutOv" onclick="if(event.target===this)closeCheckout()">
   <div class="checkout-modal">
-    <button class="mx" onclick="closeCheckout()">×</button>
+    <button class="mx" onclick="closeCheckout()" aria-label="Close checkout modal">×</button>
     <div class="co-steps">
       <div class="co-step active" id="coTab1">1. Delivery Details</div>
       <div class="co-step" id="coTab2">2. Review &amp; Pay</div>
@@ -814,18 +817,18 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
     <div id="coStep1">
       <h3 style="font-size:24px;margin-bottom:6px;">Where should we deliver?</h3>
       <p class="fsub" style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:24px;">Please enter your delivery details — this is required before you can pay.</p>
-      <div class="fg"><label>Full Name *</label><input id="coName" placeholder="Your full name"></div>
+      <div class="fg"><label for="coName">Full Name *</label><input id="coName" placeholder="Your full name"></div>
       <div class="frow">
-        <div class="fg"><label>Phone Number *</label><input id="coPhone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric"></div>
-        <div class="fg"><label>Email (optional)</label><input id="coEmail" placeholder="you@example.com"></div>
+        <div class="fg"><label for="coPhone">Phone Number *</label><input id="coPhone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric"></div>
+        <div class="fg"><label for="coEmail">Email (optional)</label><input id="coEmail" placeholder="you@example.com"></div>
       </div>
-      <div class="fg"><label>Address Line 1 *</label><input id="coAddr1" placeholder="House no., Building, Street"></div>
-      <div class="fg"><label>Address Line 2</label><input id="coAddr2" placeholder="Landmark, Area (optional)"></div>
+      <div class="fg"><label for="coAddr1">Address Line 1 *</label><input id="coAddr1" placeholder="House no., Building, Street"></div>
+      <div class="fg"><label for="coAddr2">Address Line 2</label><input id="coAddr2" placeholder="Landmark, Area (optional)"></div>
       <div class="frow">
-        <div class="fg"><label>City *</label><input id="coCity" placeholder="City"></div>
-        <div class="fg"><label>State *</label><input id="coState" placeholder="State"></div>
+        <div class="fg"><label for="coCity">City *</label><input id="coCity" placeholder="City"></div>
+        <div class="fg"><label for="coState">State *</label><input id="coState" placeholder="State"></div>
       </div>
-      <div class="fg"><label>Pincode *</label><input id="coPincode" placeholder="6-digit pincode" maxlength="6" inputmode="numeric"></div>
+      <div class="fg"><label for="coPincode">Pincode *</label><input id="coPincode" placeholder="6-digit pincode" maxlength="6" inputmode="numeric"></div>
       <div class="checkout-error" id="coError"></div>
       <button class="co-continue-btn" onclick="goToReview()">Continue to Review →</button>
     </div>
@@ -853,7 +856,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 
 <!-- POPUP -->
 <div class="popov" id="popup" onclick="if(event.target===this)closePop()">
-  <div class="popbox"><button class="popx" onclick="closePop()">×</button>
+  <div class="popbox"><button class="popx" onclick="closePop()" aria-label="Close consultation popup">×</button>
     <div class="popbadge">Limited Partnerships</div>
     <h3>Earn Up to <em>66%</em><br>Profit This Month</h3>
     <p>Join Skaeri's partner program and start growing your salon revenue immediately.</p>
@@ -1028,7 +1031,16 @@ fsubBtn.addEventListener('click',()=>{
 }
 
 // KEYBOARD
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closePop();}});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    closeModal();
+    closePop();
+    closeCart();
+    closeCheckout();
+    const applyModal = document.getElementById('apply-form-modal');
+    if(applyModal) applyModal.style.display = 'none';
+  }
+});
 
 // RENDER PRODUCTS
 function renderCards(){
@@ -1778,7 +1790,7 @@ renderTeam();
 <!-- APPLICATION FORM MODAL -->
 <div id="apply-form-modal" class="form-modal" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
   <div class="form-modal-content">
-    <button class="form-close" onclick="document.getElementById('apply-form-modal').style.display='none'">×</button>
+    <button class="form-close" onclick="document.getElementById('apply-form-modal').style.display='none'" aria-label="Close career application">×</button>
     <h3>Career Application Form</h3>
     <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:24px;">Fill in your details below. We'll review your application and contact you soon.</p>
     
