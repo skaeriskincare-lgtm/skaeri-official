@@ -778,7 +778,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 
 <!-- MODAL -->
 <div class="modal-ov" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal"><button class="mx" onclick="closeModal()">×</button>
+  <div class="modal"><button class="mx" onclick="closeModal()" aria-label="Close product details modal">×</button>
     <div class="mlay">
       <div class="mgal"><img id="mimg" src="" alt=""><div class="mgbadges" id="mbadges"></div></div>
       <div class="mbd" id="mbody"></div>
@@ -791,7 +791,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
   <div class="cart-drawer">
     <div class="cart-head">
       <h3>Your Cart</h3>
-      <button class="mx" style="position:static" onclick="closeCart()">×</button>
+      <button class="mx" style="position:static" onclick="closeCart()" aria-label="Close cart drawer">×</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-footer" id="cartFooter">
@@ -805,7 +805,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 <!-- CHECKOUT MODAL -->
 <div class="checkout-ov" id="checkoutOv" onclick="if(event.target===this)closeCheckout()">
   <div class="checkout-modal">
-    <button class="mx" onclick="closeCheckout()">×</button>
+    <button class="mx" onclick="closeCheckout()" aria-label="Close checkout modal">×</button>
     <div class="co-steps">
       <div class="co-step active" id="coTab1">1. Delivery Details</div>
       <div class="co-step" id="coTab2">2. Review &amp; Pay</div>
@@ -853,7 +853,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 
 <!-- POPUP -->
 <div class="popov" id="popup" onclick="if(event.target===this)closePop()">
-  <div class="popbox"><button class="popx" onclick="closePop()">×</button>
+  <div class="popbox"><button class="popx" onclick="closePop()" aria-label="Close partnership popup">×</button>
     <div class="popbadge">Limited Partnerships</div>
     <h3>Earn Up to <em>66%</em><br>Profit This Month</h3>
     <p>Join Skaeri's partner program and start growing your salon revenue immediately.</p>
@@ -1056,6 +1056,12 @@ function openModal(id){
   if(!p) return;
   const CATS={hair:'Hair Care',skin:'Skin Care',treatment:'Treatment',organic:'Organic'};
 
+  const isWished = WISHLIST.includes(p.id);
+  const wishText = isWished ? '♥ In Wishlist' : '♡ Add to Wishlist';
+  const wishColor = isWished ? '#ff4b5c' : 'rgba(255,255,255,0.4)';
+  const wishBorder = isWished ? '#ff4b5c' : 'rgba(255,255,255,0.1)';
+  const wishAria = isWished ? 'Remove from Wishlist' : 'Add to Wishlist';
+
   // Build before/after section if img2 exists
   const baSection = p.img2 ? `
     <div class="ba-section">
@@ -1172,12 +1178,12 @@ function openModal(id){
 
     <!-- WISH + SHARE -->
     <div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px;margin-bottom:20px;align-items:center;">
-      <button class="pdp-wish" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);padding:9px;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;" onclick="addWishlist(${p.id})">♡ Add to Wishlist</button>
+      <button class="pdp-wish" style="background:none;border:1px solid ${wishBorder};color:${wishColor};padding:9px;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;" onclick="addWishlist(${p.id}, this)" aria-label="${wishAria}">${wishText}</button>
       <div class="share-row" style="display:flex;gap:6px;">
         <span style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;align-self:center">Share</span>
-        <button class="share-btn" onclick="shareProduct('wa',${p.id})" title="WhatsApp">💬</button>
-        <button class="share-btn" onclick="shareProduct('copy',${p.id})" title="Copy Link">🔗</button>
-        <button class="share-btn" onclick="shareProduct('ig',${p.id})" title="Instagram">📷</button>
+        <button class="share-btn" onclick="shareProduct('wa',${p.id})" title="WhatsApp" aria-label="Share on WhatsApp">💬</button>
+        <button class="share-btn" onclick="shareProduct('copy',${p.id})" title="Copy Link" aria-label="Copy product link">🔗</button>
+        <button class="share-btn" onclick="shareProduct('ig',${p.id})" title="Instagram" aria-label="Share on Instagram">📷</button>
       </div>
     </div>
 
@@ -1280,6 +1286,8 @@ function addCart(id){
 // ── CART STATE ──
 let CART=[];
 try{CART=JSON.parse(localStorage.getItem('skaeri_cart')||'[]');}catch(e){CART=[];}
+let WISHLIST=[];
+try{WISHLIST=JSON.parse(localStorage.getItem('skaeri_wishlist')||'[]');}catch(e){WISHLIST=[];}
 let CHECKOUT_MODE='cart'; // 'cart' or 'single'
 let CHECKOUT_SINGLE_ID=null;
 let PAY_METHOD='online';
@@ -1535,9 +1543,34 @@ function payOnline(id){
 }
 
 // WISHLIST + SHARE
-function addWishlist(id){
+function addWishlist(id, btn){
   const p=PRODS.find(x=>x.id===id);
-  toast(p.name+' added to wishlist!','♡ Wishlist');
+  if(!p) return;
+  const idx = WISHLIST.indexOf(id);
+  let isWished = false;
+  if(idx > -1){
+    WISHLIST.splice(idx, 1);
+    toast(p.name+' removed from wishlist.','♡ Wishlist');
+  } else {
+    WISHLIST.push(id);
+    toast(p.name+' added to wishlist!','♥ Wishlist');
+    isWished = true;
+  }
+  localStorage.setItem('skaeri_wishlist', JSON.stringify(WISHLIST));
+
+  if(btn){
+    if(isWished){
+      btn.innerHTML = '♥ In Wishlist';
+      btn.style.color = '#ff4b5c';
+      btn.style.borderColor = '#ff4b5c';
+      btn.setAttribute('aria-label', 'Remove from Wishlist');
+    } else {
+      btn.innerHTML = '♡ Add to Wishlist';
+      btn.style.color = 'rgba(255,255,255,0.4)';
+      btn.style.borderColor = 'rgba(255,255,255,0.1)';
+      btn.setAttribute('aria-label', 'Add to Wishlist');
+    }
+  }
 }
 function shareProduct(type,id){
   const p=PRODS.find(x=>x.id===id);
@@ -1778,7 +1811,7 @@ renderTeam();
 <!-- APPLICATION FORM MODAL -->
 <div id="apply-form-modal" class="form-modal" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
   <div class="form-modal-content">
-    <button class="form-close" onclick="document.getElementById('apply-form-modal').style.display='none'">×</button>
+    <button class="form-close" onclick="document.getElementById('apply-form-modal').style.display='none'" aria-label="Close career application modal">×</button>
     <h3>Career Application Form</h3>
     <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:24px;">Fill in your details below. We'll review your application and contact you soon.</p>
     
