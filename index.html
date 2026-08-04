@@ -748,9 +748,9 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 </div>
 <div class="filter-bar">
   <div class="filter-inner">
-    <div class="sbox"><svg class="sico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="srch" placeholder="Search products..."></div>
+    <div class="sbox"><svg class="sico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="srch" placeholder="Search products..." aria-label="Search products"></div>
     <div class="ftabs"><button class="ftab active" data-cat="all">All</button><button class="ftab" data-cat="hair">Hair Care</button><button class="ftab" data-cat="skin">Skin Care</button><button class="ftab" data-cat="treatment">Treatments</button><button class="ftab" data-cat="organic">Organic</button></div>
-    <select class="ssrt" id="srt"><option value="popular">Popular</option><option value="price-asc">Price ↑</option><option value="price-desc">Price ↓</option><option value="rating">Rating</option></select>
+    <select class="ssrt" id="srt" aria-label="Sort products"><option value="popular">Popular</option><option value="price-asc">Price ↑</option><option value="price-desc">Price ↓</option><option value="rating">Rating</option></select>
   </div>
 </div>
 <div class="combo-banner">
@@ -778,7 +778,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 
 <!-- MODAL -->
 <div class="modal-ov" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal"><button class="mx" onclick="closeModal()">×</button>
+  <div class="modal"><button class="mx" onclick="closeModal()" aria-label="Close product details">×</button>
     <div class="mlay">
       <div class="mgal"><img id="mimg" src="" alt=""><div class="mgbadges" id="mbadges"></div></div>
       <div class="mbd" id="mbody"></div>
@@ -791,7 +791,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
   <div class="cart-drawer">
     <div class="cart-head">
       <h3>Your Cart</h3>
-      <button class="mx" style="position:static" onclick="closeCart()">×</button>
+      <button class="mx" style="position:static" onclick="closeCart()" aria-label="Close cart drawer">×</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-footer" id="cartFooter">
@@ -805,7 +805,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 <!-- CHECKOUT MODAL -->
 <div class="checkout-ov" id="checkoutOv" onclick="if(event.target===this)closeCheckout()">
   <div class="checkout-modal">
-    <button class="mx" onclick="closeCheckout()">×</button>
+    <button class="mx" onclick="closeCheckout()" aria-label="Close checkout modal">×</button>
     <div class="co-steps">
       <div class="co-step active" id="coTab1">1. Delivery Details</div>
       <div class="co-step" id="coTab2">2. Review &amp; Pay</div>
@@ -814,18 +814,18 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
     <div id="coStep1">
       <h3 style="font-size:24px;margin-bottom:6px;">Where should we deliver?</h3>
       <p class="fsub" style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:24px;">Please enter your delivery details — this is required before you can pay.</p>
-      <div class="fg"><label>Full Name *</label><input id="coName" placeholder="Your full name"></div>
+      <div class="fg"><label for="coName">Full Name *</label><input id="coName" placeholder="Your full name"></div>
       <div class="frow">
-        <div class="fg"><label>Phone Number *</label><input id="coPhone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric"></div>
-        <div class="fg"><label>Email (optional)</label><input id="coEmail" placeholder="you@example.com"></div>
+        <div class="fg"><label for="coPhone">Phone Number *</label><input id="coPhone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric"></div>
+        <div class="fg"><label for="coEmail">Email (optional)</label><input id="coEmail" placeholder="you@example.com"></div>
       </div>
-      <div class="fg"><label>Address Line 1 *</label><input id="coAddr1" placeholder="House no., Building, Street"></div>
-      <div class="fg"><label>Address Line 2</label><input id="coAddr2" placeholder="Landmark, Area (optional)"></div>
+      <div class="fg"><label for="coAddr1">Address Line 1 *</label><input id="coAddr1" placeholder="House no., Building, Street"></div>
+      <div class="fg"><label for="coAddr2">Address Line 2</label><input id="coAddr2" placeholder="Landmark, Area (optional)"></div>
       <div class="frow">
-        <div class="fg"><label>City *</label><input id="coCity" placeholder="City"></div>
-        <div class="fg"><label>State *</label><input id="coState" placeholder="State"></div>
+        <div class="fg"><label for="coCity">City *</label><input id="coCity" placeholder="City"></div>
+        <div class="fg"><label for="coState">State *</label><input id="coState" placeholder="State"></div>
       </div>
-      <div class="fg"><label>Pincode *</label><input id="coPincode" placeholder="6-digit pincode" maxlength="6" inputmode="numeric"></div>
+      <div class="fg"><label for="coPincode">Pincode *</label><input id="coPincode" placeholder="6-digit pincode" maxlength="6" inputmode="numeric"></div>
       <div class="checkout-error" id="coError"></div>
       <button class="co-continue-btn" onclick="goToReview()">Continue to Review →</button>
     </div>
@@ -853,12 +853,12 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 
 <!-- POPUP -->
 <div class="popov" id="popup" onclick="if(event.target===this)closePop()">
-  <div class="popbox"><button class="popx" onclick="closePop()">×</button>
+  <div class="popbox"><button class="popx" onclick="closePop()" aria-label="Close subscription offer">×</button>
     <div class="popbadge">Limited Partnerships</div>
     <h3>Earn Up to <em>66%</em><br>Profit This Month</h3>
     <p>Join Skaeri's partner program and start growing your salon revenue immediately.</p>
-    <input class="popinp" id="pname" type="text" placeholder="Your Name">
-    <input class="popinp" id="pphone" type="tel" placeholder="WhatsApp Number">
+    <input class="popinp" id="pname" type="text" placeholder="Your Name" aria-label="Your Name">
+    <input class="popinp" id="pphone" type="tel" placeholder="WhatsApp Number" aria-label="WhatsApp Number">
     <button class="btn-form" id="psub">Get Free Consultation →</button>
     <button class="popskip" onclick="closePop()">No thanks, I'll pass on free revenue growth</button>
   </div>
@@ -1318,10 +1318,10 @@ function renderCartUI(){
         <div class="cart-item-name">${p.name}</div>
         <div class="cart-item-price">₹${p.price} × ${item.qty} = ₹${p.price*item.qty}</div>
         <div class="cart-qty-row">
-          <button class="cart-qty-btn" onclick="changeQty(${p.id},-1)">−</button>
+          <button class="cart-qty-btn" onclick="changeQty(${p.id},-1)" aria-label="Decrease quantity">−</button>
           <span>${item.qty}</span>
-          <button class="cart-qty-btn" onclick="changeQty(${p.id},1)">+</button>
-          <button class="cart-remove" onclick="removeCartItem(${p.id})">Remove</button>
+          <button class="cart-qty-btn" onclick="changeQty(${p.id},1)" aria-label="Increase quantity">+</button>
+          <button class="cart-remove" onclick="removeCartItem(${p.id})" aria-label="Remove item from cart">Remove</button>
         </div>
       </div>
     </div>`;
@@ -1778,31 +1778,31 @@ renderTeam();
 <!-- APPLICATION FORM MODAL -->
 <div id="apply-form-modal" class="form-modal" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
   <div class="form-modal-content">
-    <button class="form-close" onclick="document.getElementById('apply-form-modal').style.display='none'">×</button>
+    <button class="form-close" onclick="document.getElementById('apply-form-modal').style.display='none'" aria-label="Close career modal">×</button>
     <h3>Career Application Form</h3>
     <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:24px;">Fill in your details below. We'll review your application and contact you soon.</p>
     
     <form id="apply-form" onsubmit="submitCareerApp(event)">
       <div class="form-grid">
         <div class="form-group">
-          <label>Full Name *</label>
-          <input type="text" name="name" required>
+          <label for="applyName">Full Name *</label>
+          <input type="text" id="applyName" name="name" required>
         </div>
         <div class="form-group">
-          <label>Mobile Number *</label>
-          <input type="tel" name="phone" pattern="[0-9]{10}" placeholder="10-digit number" required>
+          <label for="applyPhone">Mobile Number *</label>
+          <input type="tel" id="applyPhone" name="phone" pattern="[0-9]{10}" placeholder="10-digit number" required>
         </div>
         <div class="form-group">
-          <label>Email Address *</label>
-          <input type="email" name="email" required>
+          <label for="applyEmail">Email Address *</label>
+          <input type="email" id="applyEmail" name="email" required>
         </div>
         <div class="form-group">
-          <label>City *</label>
-          <input type="text" name="city" required>
+          <label for="applyCity">City *</label>
+          <input type="text" id="applyCity" name="city" required>
         </div>
         <div class="form-group full">
-          <label>Position Applying For *</label>
-          <select name="position" required>
+          <label for="applyPosition">Position Applying For *</label>
+          <select id="applyPosition" name="position" required>
             <option value="">— Select a position —</option>
             <option value="Salon Collaboration Executive">Salon Collaboration Executive</option>
             <option value="Digital Marketing Executive">Digital Marketing Executive</option>
@@ -1810,12 +1810,12 @@ renderTeam();
           </select>
         </div>
         <div class="form-group">
-          <label>Years of Experience *</label>
-          <input type="number" name="exp" min="0" placeholder="e.g., 5" required>
+          <label for="applyExp">Years of Experience *</label>
+          <input type="number" id="applyExp" name="exp" min="0" placeholder="e.g., 5" required>
         </div>
         <div class="form-group full">
-          <label>Message (Optional)</label>
-          <textarea name="message" placeholder="Tell us why you're interested in Skaeri..." rows="4"></textarea>
+          <label for="applyMsg">Message (Optional)</label>
+          <textarea id="applyMsg" name="message" placeholder="Tell us why you're interested in Skaeri..." rows="4"></textarea>
         </div>
       </div>
       <button type="submit" class="btn-primary" style="width:100%;margin-top:20px;">Submit Application</button>
