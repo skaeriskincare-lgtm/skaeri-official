@@ -1056,6 +1056,12 @@ function openModal(id){
   if(!p) return;
   const CATS={hair:'Hair Care',skin:'Skin Care',treatment:'Treatment',organic:'Organic'};
 
+  const isWishlisted = WISHLIST.includes(id);
+  const wishText = isWishlisted ? '♥ In Wishlist' : '♡ Add to Wishlist';
+  const wishStyle = isWishlisted
+    ? 'background:rgba(201,168,76,0.1);border:1px solid var(--gold);color:var(--gold);padding:9px;font-family:\'DM Sans\',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;'
+    : 'background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);padding:9px;font-family:\'DM Sans\',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;';
+
   // Build before/after section if img2 exists
   const baSection = p.img2 ? `
     <div class="ba-section">
@@ -1172,7 +1178,7 @@ function openModal(id){
 
     <!-- WISH + SHARE -->
     <div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px;margin-bottom:20px;align-items:center;">
-      <button class="pdp-wish" style="background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);padding:9px;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;" onclick="addWishlist(${p.id})">♡ Add to Wishlist</button>
+      <button class="pdp-wish" id="pdpWishBtn" style="${wishStyle}" onclick="addWishlist(${p.id})" aria-pressed="${isWishlisted}">${wishText}</button>
       <div class="share-row" style="display:flex;gap:6px;">
         <span style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;align-self:center">Share</span>
         <button class="share-btn" onclick="shareProduct('wa',${p.id})" title="WhatsApp">💬</button>
@@ -1280,6 +1286,8 @@ function addCart(id){
 // ── CART STATE ──
 let CART=[];
 try{CART=JSON.parse(localStorage.getItem('skaeri_cart')||'[]');}catch(e){CART=[];}
+let WISHLIST=[];
+try{WISHLIST=JSON.parse(localStorage.getItem('skaeri_wishlist')||'[]');}catch(e){WISHLIST=[];}
 let CHECKOUT_MODE='cart'; // 'cart' or 'single'
 let CHECKOUT_SINGLE_ID=null;
 let PAY_METHOD='online';
@@ -1537,7 +1545,31 @@ function payOnline(id){
 // WISHLIST + SHARE
 function addWishlist(id){
   const p=PRODS.find(x=>x.id===id);
-  toast(p.name+' added to wishlist!','♡ Wishlist');
+  if(!p)return;
+  const idx=WISHLIST.indexOf(id);
+  const btn=document.getElementById('pdpWishBtn');
+  if(idx!==-1){
+    WISHLIST.splice(idx,1);
+    toast(p.name+' removed from wishlist!','♡ Wishlist');
+    if(btn){
+      btn.textContent='♡ Add to Wishlist';
+      btn.style.background='none';
+      btn.style.border='1px solid rgba(255,255,255,0.1)';
+      btn.style.color='rgba(255,255,255,0.4)';
+      btn.setAttribute('aria-pressed', 'false');
+    }
+  }else{
+    WISHLIST.push(id);
+    toast(p.name+' added to wishlist!','♥ Wishlist');
+    if(btn){
+      btn.textContent='♥ In Wishlist';
+      btn.style.background='rgba(201,168,76,0.1)';
+      btn.style.border='1px solid var(--gold)';
+      btn.style.color='var(--gold)';
+      btn.setAttribute('aria-pressed', 'true');
+    }
+  }
+  localStorage.setItem('skaeri_wishlist',JSON.stringify(WISHLIST));
 }
 function shareProduct(type,id){
   const p=PRODS.find(x=>x.id===id);
