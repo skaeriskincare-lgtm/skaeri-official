@@ -778,7 +778,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 
 <!-- MODAL -->
 <div class="modal-ov" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal"><button class="mx" onclick="closeModal()">×</button>
+  <div class="modal"><button class="mx" onclick="closeModal()" aria-label="Close details">×</button>
     <div class="mlay">
       <div class="mgal"><img id="mimg" src="" alt=""><div class="mgbadges" id="mbadges"></div></div>
       <div class="mbd" id="mbody"></div>
@@ -791,7 +791,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
   <div class="cart-drawer">
     <div class="cart-head">
       <h3>Your Cart</h3>
-      <button class="mx" style="position:static" onclick="closeCart()">×</button>
+      <button class="mx" style="position:static" onclick="closeCart()" aria-label="Close cart">×</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-footer" id="cartFooter">
@@ -805,7 +805,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 <!-- CHECKOUT MODAL -->
 <div class="checkout-ov" id="checkoutOv" onclick="if(event.target===this)closeCheckout()">
   <div class="checkout-modal">
-    <button class="mx" onclick="closeCheckout()">×</button>
+    <button class="mx" onclick="closeCheckout()" aria-label="Close checkout">×</button>
     <div class="co-steps">
       <div class="co-step active" id="coTab1">1. Delivery Details</div>
       <div class="co-step" id="coTab2">2. Review &amp; Pay</div>
@@ -853,7 +853,7 @@ footer{background:var(--off-black);border-top:1px solid var(--border);padding:72
 
 <!-- POPUP -->
 <div class="popov" id="popup" onclick="if(event.target===this)closePop()">
-  <div class="popbox"><button class="popx" onclick="closePop()">×</button>
+  <div class="popbox"><button class="popx" onclick="closePop()" aria-label="Close popup">×</button>
     <div class="popbadge">Limited Partnerships</div>
     <h3>Earn Up to <em>66%</em><br>Profit This Month</h3>
     <p>Join Skaeri's partner program and start growing your salon revenue immediately.</p>
@@ -1028,7 +1028,16 @@ fsubBtn.addEventListener('click',()=>{
 }
 
 // KEYBOARD
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closePop();}});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    closeModal();
+    closePop();
+    closeCart();
+    closeCheckout();
+    const careerModal = document.getElementById('apply-form-modal');
+    if(careerModal) careerModal.style.display = 'none';
+  }
+});
 
 // RENDER PRODUCTS
 function renderCards(){
@@ -1778,7 +1787,7 @@ renderTeam();
 <!-- APPLICATION FORM MODAL -->
 <div id="apply-form-modal" class="form-modal" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
   <div class="form-modal-content">
-    <button class="form-close" onclick="document.getElementById('apply-form-modal').style.display='none'">×</button>
+    <button class="form-close" onclick="document.getElementById('apply-form-modal').style.display='none'" aria-label="Close application form">×</button>
     <h3>Career Application Form</h3>
     <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:24px;">Fill in your details below. We'll review your application and contact you soon.</p>
     
